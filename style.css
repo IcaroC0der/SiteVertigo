@@ -161,6 +161,22 @@ body {
     margin-bottom: 10px;
 }
 
+/* Container para centralizar o cartaz */
+.show-poster-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+/* Estilo específico para imagem do cartaz do show */
+.show-poster {
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
 /* Link da seção */
 .section-link {
     display: inline-block;
