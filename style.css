@@ -1,0 +1,389 @@
+/* --- Reset e Configurações Globais --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth; /* Rolagem suave ao clicar nos links da nav */
+}
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    color: #c0c0c0;
+    background-color: #000;
+    overflow-x: hidden;
+
+    /* --- IMAGEM DE FUNDO FIXA --- */
+    /* IMPORTANTE: Troque o link pela sua imagem de fundo */
+    background-image: url('https://i.imgur.com/8Jq3W4r.jpeg');
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed; /* Efeito crucial para o fundo não rolar com a página */
+}
+
+.caixa-video {
+    position: fixed; /* Posição fixa para não rolar com a página */
+    top: 0;
+    left: 0;
+    width: 100vw; /* 100% da largura da tela */
+    height: 100vh; /* 100% da altura da tela */
+    z-index: -2; /* Coloca atrás de TUDO, até do overlay */
+    overflow: hidden;
+}
+
+.caixa-video video {
+     width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mascara {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background: #000000;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.45) 50%, rgba(0, 0, 0, 1) 100%);
+}
+
+/* --- Overlay com ruído --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+    z-index: -1;
+}
+
+/* --- Seção de Entrada (Hero) --- */
+.hero-section {
+    height: 100vh; /* Ocupa a tela inteira */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.hero-section a{
+    margin-bottom: 25px;
+}
+
+.band-logo {
+    max-width: 90%;
+    opacity: 75%;
+    width: 500px; /* Ajuste o tamanho do seu logo */
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 1));
+}
+
+.main-nav {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.main-nav a {
+    font-family: 'Germania One', cursive; /* Sua fonte escolhida */
+    color: #a0a0a0;
+    text-decoration: none;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.main-nav a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #fff;
+}
+
+.main-cta {
+    color: #fff;
+    background: #000056; /* Vermelho escuro, cor de sangue */
+    padding: 12px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 1px solid #000056;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.main-cta:hover {
+    background-color: #000056;
+    transform: scale(1.05);
+}
+
+/* --- Wrapper e Seções de Conteúdo --- */
+.content-wrapper {
+    /* Fundo escuro para destacar o texto do fundo complexo */
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 50px 0;
+}
+
+.content-section {
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.content-section h2 {
+    font-family: 'Germania One', cursive;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+}
+
+.content-section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 15px auto;
+}
+
+.content-section span{
+    font-weight: bolder;
+    color: #2f2ff1;
+}
+
+/* Lista de shows */
+.content-section ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1rem;
+}
+
+.content-section ul li {
+    margin-bottom: 10px;
+}
+
+/* Link da seção */
+.section-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #a0a0a0;
+    text-decoration: none;
+    border: 1px solid #555;
+    padding: 10px 20px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.section-link:hover {
+    color: #fff;
+    background-color: #333;
+}
+
+.link{
+    color:#fff;
+    text-decoration: none;
+    transition: color 0.3s;
+
+}
+
+.link:hover{
+    color: #5959ee;
+}
+
+/* Informações de contato */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    color:#fff;
+}
+
+.contact-info a{
+    color:#fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-info a:hover{
+    color: #000056;
+}
+
+/* --- Rodapé --- */
+.footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #050505;
+    color: #555;
+    font-size: 0.8rem;
+}
+
+/* Container principal */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Largura total do container */
+    margin: 0 auto;
+    overflow: hidden; /* Esconde o que vaza muito para os lados */
+    padding: 20px 0;
+}
+
+/* A trilha */
+.carousel-track {
+    display: flex;
+    gap: 0; 
+    overflow-x: hidden; /* Escondemos a barra no desktop para o JS controlar */
+    
+    /* IMPORTANTE: Removemos o scroll-behavior smooth e o snap daqui */
+    scroll-behavior: auto; 
+    
+    padding: 20px 50%; 
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+
+/* O Card (Estado "Esmaecido") */
+.carousel-card {
+    flex: 0 0 auto;
+    width: 300px; /* Tamanho do card */
+    margin: 0 10px;
+    position: relative;
+    
+    /* Estilo visual */
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    border: 1px solid #333;
+    text-align: center;
+    
+    /* EFEITO DE ESMAECIMENTO */
+    opacity: 0.3;           /* Bem transparente */
+    transform: scale(0.8);  /* Menor */
+    transition: all 1.2s ease; /* Animação suave */
+    
+    /* Para o snap funcionar no centro */
+    scroll-snap-align: center; 
+}
+
+/* O Card (Estado "Destaque/Ativo") */
+.carousel-card.active {
+    opacity: 1;             /* Totalmente visível */
+    transform: scale(1.1);  /* Maior que os outros */
+    border-color: #fff;     /* Borda branca */
+    z-index: 5;             /* Fica por cima dos outros */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Imagens e Textos */
+.carousel-card img {
+    width: 100%;
+    height: 300px; /* Mesma altura da largura base do card desktop */
+    object-fit: cover; /* Corta as bordas se a imagem não for quadrada, mas não estica */
+    border-radius: 10px 10px 0 0;
+    display: block;
+}
+
+.card-info { padding: 10px; }
+
+.card-info h3 {
+    font-family: 'Germania One', cursive;
+    color: #fff;
+    margin: 5px 0;
+    font-size: 1.2rem;
+}
+
+.card-info p {
+    font-family: 'Roboto Mono', monospace;
+    color: #ccc;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.carousel-card a { text-decoration: none; }
+
+/* Botões Laterais */
+.carousel-btn {
+    background: rgba(0,0,0,0.0);
+    border: none;
+    color: #fff;
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+.carousel-btn:hover { background: transparent; color: #2f2ff1; }
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+/* --- MOBILE (AQUI SIM usamos o travamento/snap) --- */
+@media (max-width: 768px) {
+    .carousel-wrapper { 
+        max-width: 100%; 
+    }
+    
+    .carousel-btn { 
+        display: none; /* Remove as setas no celular (usamos o dedo) */
+    } 
+    
+    .carousel-track {
+        overflow-x: auto; /* Permite arrastar com o dedo */
+        scroll-snap-type: x mandatory; /* Imã para parar no centro */
+        
+        /* CÁLCULO MÁGICO DA CENTRALIZAÇÃO MOBILE: 
+           50% da tela - Metade do tamanho do card (que é 27.5vw) 
+           Isso garante que o primeiro item já nasça no meio */
+        padding: 20px calc(50% - 27.5vw); 
+        
+        /* Removemos conflitos do JS para o toque ficar nativo */
+        scroll-behavior: smooth; 
+    }
+    
+    .carousel-card {
+        /* AQUI ESTÁ O SEGREDO: 
+           55vw = O card ocupa um pouco mais da metade da tela.
+           Isso deixa um bom pedaço dos vizinhos visível. */
+        width: 40vw; 
+        flex: 0 0 auto;
+        
+        scroll-snap-align: center; /* O imã pega no meio do card */
+        margin: 0 10px; /* Um respiro entre eles */
+        
+        /* Ajuste de escala para mobile (menos exagerado que PC) */
+        opacity: 0.4;
+        transform: scale(0.85);
+    }
+    
+    /* Quando o card está no centro (focado) */
+    .carousel-card.active {
+        opacity: 1;
+        transform: scale(1.1); /* Cresce um pouco para destacar */
+        z-index: 10;
+    }
+
+    .carousel-card img {
+        /* No mobile a largura é 55vw, então a altura deve acompanhar pra ficar quadrada */
+        height: 40vw; 
+    }
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .main-nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .main-nav a {
+        font-size: 1.2rem;
+    }
+    .band-logo {
+        width: 180px;
+    }
+    .content-section {
+        padding: 10px;
+    }
+    .content-section h2 {
+        font-size: 2rem;
+    }
+}
