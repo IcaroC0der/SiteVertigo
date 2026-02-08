@@ -1,0 +1,102 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vertigo - Silence</title>
+    <link rel="shortcut icon" type="image/png" href="./src/img/circulo.png"/>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Germania+One&family=Special+Elite&display=swap" rel="stylesheet">
+    
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="caixa-video">
+        <video src="src/img/site-preset.mp4" loop muted autoplay></video>
+    </div>
+
+    <main class="launch-wrapper">
+        <h1 class="single-title">SILENCE</h1>
+        <p class="subtitle">21.02</p>
+
+        <div class="countdown" id="countdown">
+            <div class="time-box">
+                <span class="number" id="days">00</span>
+                <span class="label">Dias</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="hours">00</span>
+                <span class="label">Horas</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="minutes">00</span>
+                <span class="label">Min</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="seconds">00</span>
+                <span class="label">Seg</span>
+            </div>
+        </div>
+
+        <a href="https://artists.landr.com/057914798066" target="_blank" class="pre-save-btn">
+            FAZER PRE-SAVE
+        </a>
+
+        <a href="#proximos-shows" class="scroll-indicator">
+            <span>Ver Agenda</span>
+            <div class="arrow-down">&#8681;</div> </a>
+    </main>
+
+    <section id="proximos-shows" class="shows-section">
+        <h2>PRÓXIMOS SHOWS</h2>
+        
+        <div class="show-card">
+            <span class="show-date">16.02 - CARNAHELL - LOW BROW</span>
+            <br>
+            <a href="https://shotgun.live/pt-br/events/carnahell-2026-ano-4" target="_blank" class="ingresso-btn">INGRESSOS</a>
+        </div>
+
+        <div class="show-card">
+            <span class="show-date">21.02 - 18° GRITO GOIÂNIA - MARTIM CERERÊ</span>
+            <br>
+            <a href="https://shotgun.live/pt-br/events/18-festival-grito-goiania" target="_blank" class="ingresso-btn">INGRESSOS</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>vertigobandabrasil@gmail.com</p>
+        <p>&copy; 2026 Vertigo.</p>
+    </footer>
+
+    <script>
+        // CONFIGURAÇÃO DA DATA
+        const launchDate = new Date("February 22, 2026 00:00:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "<h2 style='color:#ff2c2c; font-family: Germania One; font-size: 3rem;'>JÁ DISPONÍVEL</h2>";
+                document.querySelector(".subtitle").style.display = "none";
+                document.querySelector(".pre-save-btn").innerText = "OUÇA AGORA";
+                document.querySelector(".pre-save-btn").href = "https://artists.landr.com/057914798066";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
