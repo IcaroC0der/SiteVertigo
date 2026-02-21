@@ -1,164 +1,158 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; } /* Rolagem suave ao clicar na seta */
-        
-        body {
-            font-family: "Special Elite", system-ui;
-            color: #e0e0e0;
-            background-color: #000;
-            overflow-x: hidden;
-            /* Fundo fixo para dar profundidade */
-            background-image: url('https://i.imgur.com/8Jq3W4r.jpeg'); /* Imagem de backup se o vídeo falhar */
-            background-position: center;
-            background-size: cover;
-            background-attachment: fixed;
-        }
+/* --- Reset e Configurações Globais --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth; /* Rolagem suave ao clicar nos links da nav */
+}
 
-        /* --- VIDEO BACKGROUND --- */
-        .caixa-video {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2; overflow: hidden;
-        }
-        .caixa-video video {
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.1; 
-        }
-        
-        /* Camada escura sobre o vídeo para ler o texto */
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
-            z-index: -1;
-        }
+body {
+    font-family: "Special Elite", system-ui;
+    color: #c0c0c0;
+    background-color: #000;
+    overflow-x: hidden;
 
-        /* --- TELA 1: LANÇAMENTO (HERO) --- */
-        .launch-wrapper {
-            /* Ocupa exatamente 100% da altura da tela */
-            height: 100vh; 
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative; /* Para posicionar a seta absoluta */
-            text-align: center;
-            padding: 20px;
-        }
+    /* --- IMAGEM DE FUNDO FIXA --- */
+    /* IMPORTANTE: Troque o link pela sua imagem de fundo */
+    background-image: url('https://i.imgur.com/8Jq3W4r.jpeg');
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed; /* Efeito crucial para o fundo não rolar com a página */
+}
 
-        h1.single-title {
-            font-family: "Special Elite", system-ui;
-            font-size: 5rem; 
-            color: #969696;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-            animation: fadeIn 2s ease-in;
-        }
+.caixa-video {
+    position: fixed; /* Posição fixa para não rolar com a página */
+    top: 0;
+    left: 0;
+    width: 100vw; /* 100% da largura da tela */
+    height: 100vh; /* 100% da altura da tela */
+    z-index: -2; /* Coloca atrás de TUDO, até do overlay */
+    overflow: hidden;
+}
 
-        p.subtitle {
-            font-family: "Special Elite", system-ui;
-            font-size: 2rem;
-            letter-spacing: 5px;
-            color: #ff2c2c;
-            margin-bottom: 40px;
-        }
+.caixa-video video {
+     width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-        /* --- CRONÔMETRO --- */
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-        }
+.mascara {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background: #000000;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.45) 50%, rgba(0, 0, 0, 1) 100%);
+}
 
-        .time-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px;
-            min-width: 100px;
-        }
+/* --- Overlay com ruído --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.9) 100%);
+    z-index: -1;
+}
 
-        .number {
-            font-family: "Special Elite", system-ui;
-            font-size: 6rem;
-            line-height: 1;
-            color: #fff;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-        }
+/* --- Seção de Entrada (Hero) --- */
+.hero-section {
+    height: 100vh; /* Ocupa a tela inteira */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
 
-        .label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: #aaa;
-            margin-top: 5px;
-            font-family: 'Roboto Mono', monospace;
-        }
+.hero-section a{
+    margin-bottom: 25px;
+}
 
-        /* Botão Pre-Save */
-        .pre-save-btn {
-            display: inline-block;
-            background: transparent;
-            color: #fff;
-            font-family: "Special Elite", system-ui;
-            font-size: 1rem;
-            font-weight: 700;
-            text-decoration: none;
-            padding: 18px 40px;
-            border: 2px solid #ff2c2c;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            margin-top: 20px;
-            cursor: pointer;
-        }
+.band-logo {
+    max-width: 90%;
+    opacity: 75%;
+    width: 500px; /* Ajuste o tamanho do seu logo */
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 1));
+}
 
-        .pre-save-btn:hover {
-            background: #ff2c2c;
-            color: #000;
-            box-shadow: 0 0 30px rgba(255, 44, 44, 0.6);
-        }
+.main-nav {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 40px;
+}
 
-        /* --- SETA INDICADORA (Scroll Down) --- */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #ccc;
-            text-decoration: none;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
+.main-nav a {
+    font-family: "Special Elite", system-ui;
+    color: #a0a0a0;
+    text-decoration: none;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    transition: color 0.3s, text-shadow 0.3s;
+}
 
-        .scroll-indicator span {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-        }
+.main-nav a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px #fff;
+}
 
-        .arrow-down {
-            font-size: 2rem;
-            animation: bounce 2s infinite;
-        }
+.main-cta {
+    color: #fff;
+    background: #64646426; /* Vermelho escuro, cor de sangue */
+    padding: 12px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: 1px solid #ce0000;
+    transition: 0.3s;
+}
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
+.main-cta:hover {
+    background: #ff2c2c;
+    color: #000;
+    box-shadow: 0 0 30px rgba(255, 44, 44, 0.6);
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* --- Wrapper e Seções de Conteúdo --- */
+.content-wrapper {
+    /* Fundo escuro para destacar o texto do fundo complexo */
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 50px 0;
+}
 
+.content-section {
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    padding: 40px;
+    text-align: center;
+}
 
-        /* --- TELA 2: SHOWS (ABAIXO DA DOBRA) --- */
+.content-section h2 {
+    font-family: "Special Elite", system-ui;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+    letter-spacing: 4px;
+}
+
+.content-section p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 15px auto;
+}
+
+.content-section span{
+    font-weight: bolder;
+    color: #ce0000;
+}
+
+/* --- TELA 2: SHOWS (ABAIXO DA DOBRA) --- */
         .shows-section {
-            min-height: 80vh; /* Ocupa quase outra tela inteira */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -191,8 +185,132 @@
             display: block;
             margin-bottom: 15px;
         }
+/* Informações de contato */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    color:#fff;
+}
 
-        .ingresso-btn {
+.contact-info a{
+    color:#fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.contact-info a:hover{
+    color: #ce0000;
+}
+
+/* --- Rodapé --- */
+.footer {
+    text-align: center;
+    padding: 30px;
+    background-color: #050505;
+    color: #555;
+    font-size: 0.8rem;
+}
+
+/* Container principal */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Largura total do container */
+    margin: 0 auto;
+    overflow: hidden; /* Esconde o que vaza muito para os lados */
+    padding: 20px 0;
+}
+
+/* A trilha */
+.carousel-track {
+    display: flex;
+    gap: 0; 
+    overflow-x: hidden; /* Escondemos a barra no desktop para o JS controlar */
+    
+    /* IMPORTANTE: Removemos o scroll-behavior smooth e o snap daqui */
+    scroll-behavior: auto; 
+    
+    padding: 20px 50%; 
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+
+/* O Card (Estado "Esmaecido") */
+.carousel-card {
+    flex: 0 0 auto;
+    width: 300px; /* Tamanho do card */
+    margin: 0 10px;
+    position: relative;
+    
+    /* Estilo visual */
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    border: 1px solid #333;
+    text-align: center;
+    
+    /* EFEITO DE ESMAECIMENTO */
+    opacity: 0.3;           /* Bem transparente */
+    transform: scale(0.8);  /* Menor */
+    transition: all 1.2s ease; /* Animação suave */
+    
+    /* Para o snap funcionar no centro */
+    scroll-snap-align: center; 
+}
+
+/* O Card (Estado "Destaque/Ativo") */
+.carousel-card.active {
+    opacity: 1;             /* Totalmente visível */
+    transform: scale(1.1);  /* Maior que os outros */
+    border-color: #fff;     /* Borda branca */
+    z-index: 5;             /* Fica por cima dos outros */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Imagens e Textos */
+.carousel-card img {
+    width: 100%;
+    height: 300px; /* Mesma altura da largura base do card desktop */
+    object-fit: cover; /* Corta as bordas se a imagem não for quadrada, mas não estica */
+    border-radius: 10px 10px 0 0;
+    display: block;
+}
+
+.card-info { padding: 10px; }
+
+.card-info h3 {
+    font-family: "Special Elite", system-ui;
+    color: #fff;
+    margin: 5px 0;
+    font-size: 1.2rem;
+}
+
+.card-info p {
+    font-family: 'Roboto Mono', monospace;
+    color: #ccc;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.carousel-card a { text-decoration: none; }
+
+/* Botões Laterais */
+.carousel-btn {
+    background: rgba(0,0,0,0.0);
+    border: none;
+    color: #fff;
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.ingresso-btn {
             display: inline-block;
             margin-top: 10px;
             color: #fff;
@@ -200,29 +318,91 @@
             text-decoration: none;
             background: transparent;
             border: 1px solid #ff2c2c;
-            padding-bottom: 2px;
+            padding-bottom: 4px;
             font-size: 0.9rem;
             transition: 0.3s;
             padding: 9px 18px;
         }
 
-        .ingresso-btn:hover {
+.ingresso-btn:hover {
             background: #ff2c2c;
             color: #000;
             box-shadow: 0 0 30px rgba(255, 44, 44, 0.6);
         }
 
-        footer {
-            background: #000;
-            text-align: center;
-            padding: 20px;
-        }
 
-        /* Responsividade Mobile */
-        @media (max-width: 600px) {
-            h1.single-title { font-size: 3.5rem; }
-            .countdown { gap: 10px; }
-            .time-box { min-width: 70px; padding: 10px; }
-            .number { font-size: 2rem; }
-            .launch-wrapper { padding-top: 60px; } /* Ajuste se o logo ficar muito em cima */
-        }
+.carousel-btn:hover { background: transparent; color: #ce0000; }
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+/* --- MOBILE (AQUI SIM usamos o travamento/snap) --- */
+@media (max-width: 768px) {
+    .carousel-wrapper { 
+        max-width: 100%; 
+    }
+    
+    .carousel-btn { 
+        display: none; /* Remove as setas no celular (usamos o dedo) */
+    } 
+    
+    .carousel-track {
+        overflow-x: auto; /* Permite arrastar com o dedo */
+        scroll-snap-type: x mandatory; /* Imã para parar no centro */
+        
+        /* CÁLCULO MÁGICO DA CENTRALIZAÇÃO MOBILE: 
+           50% da tela - Metade do tamanho do card (que é 27.5vw) 
+           Isso garante que o primeiro item já nasça no meio */
+        padding: 20px calc(50% - 27.5vw); 
+        
+        /* Removemos conflitos do JS para o toque ficar nativo */
+        scroll-behavior: smooth; 
+    }
+    
+    .carousel-card {
+        /* AQUI ESTÁ O SEGREDO: 
+           55vw = O card ocupa um pouco mais da metade da tela.
+           Isso deixa um bom pedaço dos vizinhos visível. */
+        width: 40vw; 
+        flex: 0 0 auto;
+        
+        scroll-snap-align: center; /* O imã pega no meio do card */
+        margin: 0 10px; /* Um respiro entre eles */
+        
+        /* Ajuste de escala para mobile (menos exagerado que PC) */
+        opacity: 0.4;
+        transform: scale(0.85);
+    }
+    
+    /* Quando o card está no centro (focado) */
+    .carousel-card.active {
+        opacity: 1;
+        transform: scale(1.1); /* Cresce um pouco para destacar */
+        z-index: 10;
+    }
+
+    .carousel-card img {
+        /* No mobile a largura é 55vw, então a altura deve acompanhar pra ficar quadrada */
+        height: 40vw; 
+    }
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .main-nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .main-nav a {
+        font-size: 1.2rem;
+    }
+    .band-logo {
+        width: 180px;
+    }
+    .content-section {
+        padding: 10px;
+    }
+    .content-section h2 {
+        font-size: 2rem;
+    }
+}

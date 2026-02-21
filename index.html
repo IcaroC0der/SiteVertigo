@@ -1,102 +1,292 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vertigo - Silence</title>
+    <title>Vertigo</title>
     <link rel="shortcut icon" type="image/png" href="./src/img/circulo.png"/>
     <link rel="stylesheet" href="style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Germania+One&family=Special+Elite&display=swap" rel="stylesheet">
-    
+</head>
 <body>
 
     <div class="overlay"></div>
 
-    <div class="caixa-video">
-        <video src="src/img/site-preset.mp4" loop muted autoplay></video>
-    </div>
+    <div class="hero-section">
+        <header class="main-header">
+            <img src="src/img/vertigo-icon-2.png" alt="Logo da Banda Vertigo" class="band-logo">
+        </header>
 
-    <main class="launch-wrapper">
-        <h1 class="single-title">SILENCE</h1>
-        <p class="subtitle">21.02</p>
-
-        <div class="countdown" id="countdown">
-            <div class="time-box">
-                <span class="number" id="days">00</span>
-                <span class="label">Dias</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="hours">00</span>
-                <span class="label">Horas</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="minutes">00</span>
-                <span class="label">Min</span>
-            </div>
-            <div class="time-box">
-                <span class="number" id="seconds">00</span>
-                <span class="label">Seg</span>
-            </div>
+        <div class="caixa-video">
+          <video src="src/img/site-preset.mp4" loop muted autoplay></video>
+          <div class="mascara"></div>
         </div>
 
-        <a href="https://artists.landr.com/057914798066" target="_blank" class="pre-save-btn">
-            FAZER PRE-SAVE
+        <nav class="main-nav">
+            <a href="#sobre">Sobre</a>
+            <a href="#proximos-shows">Shows</a>
+            <a href="#musicas">Músicas</a>
+            <a href="#contato">Contato</a>
+        </nav>
+        
+        <a href="https://open.spotify.com/intl-pt/track/22UoJXFPTdNzLUHMJLRUyb?si=37812d067ff54ea3" target="_blank" class="main-cta">▶ Ouça Silence
         </a>
+        <a href="https://www.youtube.com/@Vertigo_vtg" target="_blank" class="main-cta">▶ Canal do youtube</a>
+    </div>
 
-        <a href="#proximos-shows" class="scroll-indicator">
-            <span>Ver Agenda</span>
-            <div class="arrow-down">&#8681;</div> </a>
-    </main>
+    <div class="content-wrapper">
+        <section id="sobre" class="content-section">
+            <h2>SOBRE</h2>
+            <p>A banda Vertigo é uma banda de metal alternativo fundada em 2024 pelos músicos Clound e Vyper. Puxando as raízes do nu metal a banda trás um som melódico, pesado e bem característico dos anos 90 mas com nuances modernas e construindo um som intenso e moderno.</p>
+        </section>
 
-    <section id="proximos-shows" class="shows-section">
+        <section id="proximos-shows" class="shows-section">
         <h2>PRÓXIMOS SHOWS</h2>
         
         <div class="show-card">
-            <span class="show-date">16.02 - CARNAHELL - LOW BROW</span>
+            <span class="show-date">28.02 - CIDADE ROCK - MARTIM CERERÊ</span>
             <br>
-            <a href="https://shotgun.live/pt-br/events/carnahell-2026-ano-4" target="_blank" class="ingresso-btn">INGRESSOS</a>
+            <a href="https://www.instagram.com/p/DUlOWj4EZle/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" class="ingresso-btn">INFORMAÇÕES</a>
         </div>
+        </section>
 
-        <div class="show-card">
-            <span class="show-date">21.02 - 18° GRITO GOIÂNIA - MARTIM CERERÊ</span>
-            <br>
-            <a href="https://shotgun.live/pt-br/events/18-festival-grito-goiania" target="_blank" class="ingresso-btn">INGRESSOS</a>
-        </div>
-    </section>
+        <section id="musicas" class="content-section">
+            <h2>MÚSICAS</h2>
+            
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev-btn" id="prevBtn">&#10094;</button>
 
-    <footer>
-        <p>vertigobandabrasil@gmail.com</p>
-        <p>&copy; 2026 Vertigo.</p>
+                
+                <div class="carousel-track" id="track">
+                    <div class="carousel-card">
+                        <a href="https://open.spotify.com/intl-pt/track/22UoJXFPTdNzLUHMJLRUyb?si=37812d067ff54ea3" target="_blank">
+                            <img src="src/img/CapaSilence.png" alt="Capa Silence">
+                            <div class="card-info">
+                                <h3>Silence</h3>
+                                <p>Single</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="carousel-card">
+                        <a href="https://artists.landr.com/057829902008" target="_blank">
+                            <img src="src/img/CapaGenesis.jpg" alt="Capa Live">
+                            <div class="card-info">
+                                <h3>Genesis</h3>
+                                <p>EP</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="carousel-card">
+                        <a href="https://artists.landr.com/057829274143" target="_blank">
+                            <img src="src/img/CapaAfterHere.jpg" alt="Capa EP">
+                            <div class="card-info">
+                                <h3>After Here</h3>
+                                <p>Single</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="carousel-card">
+                        <a href="" target="_blank">
+                            <img src="src/img/CapaApósOFim.png" alt="Capa Genesis">
+                            <div class="card-info">
+                                <h3>Após o fim</h3>
+                                <p>Single</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <button class="carousel-btn next-btn" id="nextBtn">&#10095;</button>
+            </div>
+        </section>
+
+        <section id="contato" class="content-section">
+            <h2>CONTATO</h2>
+            <p>Para shows, parcerias ou entrevistas:</p>
+            <div class="contact-info">
+                <p>📧 vertigobandabrasil@gmail.com</p>
+                <a href="https://wa.me/62994919324" target="blank" class="link">📞(62)99491-9324</a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Vertigo. Todos os direitos reservados.</p>
     </footer>
 
     <script>
-        // CONFIGURAÇÃO DA DATA
-        const launchDate = new Date("February 22, 2026 00:00:00").getTime();
+        document.addEventListener('DOMContentLoaded', () => {
+            const track = document.getElementById('track');
+            const cards = document.querySelectorAll('.carousel-card');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // --- CONFIGURAÇÕES DE VELOCIDADE ---
+            const autoPlayDelay = 3000;   // Tempo PARADO esperando (3 segundos)
+            const scrollSpeed = 2000;     // Tempo MOVENDO de um card pro outro (1.5s) - AQUI QUE MUDA A SUAVIDADE
+            // ----------------------------------
 
-        const timer = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = launchDate - now;
+            let currentIndex = 0;
+            let autoPlayInterval;
+            let isAnimating = false; // Evita cliques duplos malucos
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Centraliza o primeiro card ao carregar
+            setTimeout(() => {
+                updateActiveCard();
+                // Posiciona no primeiro sem animar (instantâneo)
+                const startPos = getCardPosition(0);
+                track.scrollLeft = startPos;
+            }, 100);
 
-            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
-
-            if (distance < 0) {
-                clearInterval(timer);
-                document.getElementById("countdown").innerHTML = "<h2 style='color:#ff2c2c; font-family: Germania One; font-size: 3rem;'>JÁ DISPONÍVEL</h2>";
-                document.querySelector(".subtitle").style.display = "none";
-                document.querySelector(".pre-save-btn").innerText = "OUÇA AGORA";
-                document.querySelector(".pre-save-btn").href = "https://artists.landr.com/057914798066";
+            // --- FUNÇÃO MATEMÁTICA PARA O MOVIMENTO SUAVE (Easing) ---
+            // Isso faz o movimento começar devagar, acelerar e frear suavemente
+            function easeInOutQuad(t, b, c, d) {
+                t /= d/2;
+                if (t < 1) return c/2*t*t + b;
+                t--;
+                return -c/2 * (t*(t-2) - 1) + b;
             }
-        }, 1000);
-    </script>
+
+            // --- NOSSO MOTOR DE SCROLL PERSONALIZADO ---
+            function customScrollTo(element, to, duration) {
+                const start = element.scrollLeft;
+                const change = to - start;
+                let currentTime = 0;
+                const increment = 20;
+
+                isAnimating = true;
+
+                const animateScroll = () => {
+                    currentTime += increment;
+                    const val = easeInOutQuad(currentTime, start, change, duration);
+                    element.scrollLeft = val;
+
+                    if (currentTime < duration) {
+                        requestAnimationFrame(animateScroll);
+                    } else {
+                        isAnimating = false;
+                        // Garante que parou no pixel exato
+                        element.scrollLeft = to; 
+                    }
+                };
+                animateScroll();
+            }
+
+            // Pega a posição exata para centralizar um card
+            function getCardPosition(index) {
+                if(index < 0 || index >= cards.length) return track.scrollLeft;
+                const card = cards[index];
+                const trackWidth = track.offsetWidth;
+                const cardWidth = card.offsetWidth;
+                return card.offsetLeft - (trackWidth / 2) + (cardWidth / 2);
+            }
+
+            // Função principal que chama o movimento
+            function scrollToCard(index, instant = false) {
+                if(index < 0 || index >= cards.length) return;
+                const targetPosition = getCardPosition(index);
+                customScrollTo(track, targetPosition, scrollSpeed);
+
+                if (instant) {
+                    // Se for instantâneo, muda o scroll direto sem suavidade
+                    track.scrollLeft = target;
+                    // Forçamos a atualização visual do destaque manualmente
+                    updateActiveCard(); 
+                }else {
+                    // Se não, usa a animação bonita
+                    smoothScrollTo(target, transitionTime);
+                }   
+            }
+
+            // --- LÓGICA VISUAL (QUEM ESTÁ NO MEIO?) ---
+            function updateActiveCard() {
+                const trackCenter = track.scrollLeft + (track.offsetWidth / 2);
+                let closestCard = null;
+                let closestDistance = Infinity;
+
+                cards.forEach((card, index) => {
+                    // Calculamos o centro do card baseado na posição relativa ao scroll
+                    const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+                    const distance = Math.abs(trackCenter - cardCenter);
+
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestCard = card;
+                    }
+                });
+
+                cards.forEach(c => c.classList.remove('active'));
+                if (closestCard) closestCard.classList.add('active');
+            }
+
+            // Ouve o scroll para atualizar o visual (esmaecer/destacar)
+            track.addEventListener('scroll', updateActiveCard);
+
+            // --- BOTÕES ---
+            prevBtn.addEventListener('click', () => {
+                if (isAnimating) return; // Impede clicar enquanto move
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = cards.length - 1; // Loop
+                }
+                scrollToCard(currentIndex);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (isAnimating) return;
+                if (currentIndex < cards.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0; // Loop
+                }
+                scrollToCard(currentIndex);
+            });
+
+            // --- AUTO PLAY ---
+            const startAutoPlay = () => {
+                
+                stopAutoPlay(); // Garante que não tem dois rodando
+                autoPlayInterval = setInterval(() => {
+                    if (!isAnimating) {
+                        currentIndex = (currentIndex + 1) % cards.length;
+                        scrollToCard(currentIndex);
+                    }
+                }, autoPlayDelay);
+            };
+
+            const stopAutoPlay = () => clearInterval(autoPlayInterval);
+
+            startAutoPlay();
+
+            // Controles de mouse para pausar
+            track.addEventListener('mouseenter', stopAutoPlay);
+            prevBtn.addEventListener('mouseenter', stopAutoPlay);
+            nextBtn.addEventListener('mouseenter', stopAutoPlay);
+
+            track.addEventListener('mouseleave', startAutoPlay);
+            prevBtn.addEventListener('mouseleave', startAutoPlay);
+            nextBtn.addEventListener('mouseleave', startAutoPlay);
+
+            // Quando encostar o dedo, PAUSA o carrossel
+            track.addEventListener('touchstart', () => {
+                stopAutoPlay();
+            });
+
+            // Quando tirar o dedo, REINICIA a contagem
+            track.addEventListener('touchend', () => {
+                startAutoPlay();
+            });
+            
+            // Responsividade
+            window.addEventListener('resize', () => {
+                stopAutoPlay();
+                startAutoPlay();
+            });
+        });
+        </script>
 
 </body>
 </html>
