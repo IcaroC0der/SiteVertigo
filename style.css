@@ -42,7 +42,7 @@ body {
     position: fixed;
     top: 0;
     background: #000000;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.45) 50%, rgba(0, 0, 0, 1) 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 1) 100%);
 }
 
 /* --- Overlay com ruído --- */
