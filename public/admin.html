@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertigo Admin Panel</title>
+    <!-- Importando as mesmas fontes do site -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        /* --- Reset e Configurações Globais --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Special Elite', system-ui;
+            font-size: 1.1rem;
+            color: #c0c0c0;
+            background-color: #000;
+            background-image: url('src/img/bg_myspace.jpg');
+            background-position: top left;
+            background-repeat: repeat;
+            background-attachment: fixed; 
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Titles font */
+        h1, h2, h3, .myspace-header {
+            font-family: 'Special Elite', system-ui;
+            color: #ff2c2c;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .myspace-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .box {
+            background: rgba(10, 10, 10, 0.85);
+            border: 2px solid #ce0000;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(206, 0, 0, 0.5);
+        }
+
+        .box-header {
+            background-color: #ce0000;
+            color: #000;
+            padding: 5px 10px;
+            margin: -20px -20px 20px -20px;
+            border-radius: 3px 3px 0 0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid #500000;
+            font-family: 'Special Elite', system-ui;
+        }
+
+        hr {
+            border: 1px dashed #ce0000;
+            margin: 20px 0;
+        }
+
+        /* Formulários */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; color: #ff2c2c; font-family: 'Special Elite', system-ui; font-size: 1.1rem;}
+        
+        input[type="text"], input[type="password"], textarea, input[type="file"] { 
+            width: 100%; 
+            padding: 8px; 
+            background: #000; 
+            color: #fff; 
+            border: 1px solid #ce0000; 
+            font-family: 'Special Elite', system-ui;
+            font-size: 1.1rem;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #ff2c2c;
+            box-shadow: 0 0 5px rgba(255, 44, 44, 0.5);
+        }
+        textarea { height: 100px; resize: vertical; }
+
+        /* Botões */
+        button {
+            display: inline-block;
+            background: #ce0000;
+            color: #000;
+            padding: 8px 15px;
+            font-family: 'Special Elite', system-ui;
+            font-size: 1.2rem;
+            border: 2px solid #ff2c2c;
+            box-shadow: 2px 2px 0px #500000;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover { 
+            background: #ff2c2c; 
+            box-shadow: 2px 2px 0px #800000;
+        }
+
+        /* Álbuns */
+        .album-item { 
+            background: #000; 
+            border: 1px dashed #ce0000;
+            padding: 10px; 
+            margin-bottom: 10px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .album-item img { 
+            width: 50px; height: 50px; 
+            object-fit: cover; 
+            margin-right: 10px; 
+            image-rendering: pixelated;
+            border: 1px solid #ff2c2c;
+        }
+
+        /* Status Messages */
+        .status { padding: 10px; margin-bottom: 15px; display: none; font-family: 'Special Elite', system-ui; font-size: 1rem; text-align: center; }
+        .success { background: rgba(46, 125, 50, 0.8); border: 1px solid #4caf50; color: #fff;}
+        .error { background: rgba(198, 40, 40, 0.8); border: 1px solid #ff5252; color: #fff; }
+
+        /* Telas */
+        #dashboardScreen { display: none; }
+        #loginScreen { text-align: center; margin-top: 100px; }
+
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+
+    <!-- TELA DE LOGIN (BLOQUEIO) -->
+    <div class="myspace-container" id="loginScreen">
+        <div class="box" style="max-width: 400px; margin: 0 auto;">
+            <div class="box-header">Acesso Restrito</div>
+            <img src="src/img/vertigo-icon-2.png" alt="Vertigo" style="width: 200px; filter: drop-shadow(0 0 10px #ce0000); margin-bottom: 20px;">
+            <div class="form-group">
+                <label>Senha do Admin</label>
+                <input type="password" id="loginPwd" placeholder="***">
+            </div>
+            <button onclick="login()" style="width: 100%;">ENTRAR</button>
+            <div id="loginStatus" class="status" style="margin-top: 15px;"></div>
+        </div>
+    </div>
+
+    <!-- PAINEL DE CONTROLE (OCULTO INICIALMENTE) -->
+    <div class="myspace-container" id="dashboardScreen">
+        
+        <header class="box" style="text-align: center;">
+            <h1 style="margin: 0; font-size: 2rem;">VERTIGO ADMIN PANEL</h1>
+            <p>Gerenciador de Conteúdo</p>
+        </header>
+        
+        <div id="statusMessage" class="status"></div>
+
+        <div class="box">
+            <div class="box-header">Sobre a Banda</div>
+            <div class="form-group">
+                <textarea id="aboutText"></textarea>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header">Links de Contato</div>
+            <div class="form-group"><label>Pré-save</label><input type="text" id="contactPresave"></div>
+            <div class="form-group"><label>YouTube</label><input type="text" id="contactYoutube"></div>
+            <div class="form-group"><label>WhatsApp</label><input type="text" id="contactWhatsapp"></div>
+            <div class="form-group"><label>Email</label><input type="text" id="contactEmail"></div>
+        </div>
+
+        <div class="box">
+            <div class="box-header">Vídeo Destaque</div>
+            <div class="form-group">
+                <label>ID do Vídeo no YouTube (Ex: DdJh621EWtI)</label>
+                <input type="text" id="videoId">
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header">Shows</div>
+            <div id="showsList"></div>
+            
+            <hr>
+            
+            <h3>Adicionar Novo Show</h3>
+            <div class="form-group"><label>Data / Título</label><input type="text" id="newShowDate"></div>
+            <div class="form-group"><label>Link do Ingresso</label><input type="text" id="newShowLink"></div>
+            <button onclick="addShow()">Adicionar Show</button>
+        </div>
+
+        <div class="box">
+            <div class="box-header">Gerenciador de Álbuns</div>
+            <div id="albumsList"></div>
+            
+            <hr>
+            
+            <h3>Adicionar Novo Álbum</h3>
+            <div class="form-group"><label>Título</label><input type="text" id="newAlbumTitle"></div>
+            <div class="form-group"><label>Tipo (Single/EP)</label><input type="text" id="newAlbumType"></div>
+            <div class="form-group"><label>Link (Spotify/Landr)</label><input type="text" id="newAlbumLink"></div>
+            <div class="form-group"><label>Capa (Upload de Imagem)</label><input type="file" id="newAlbumFile" accept="image/*"></div>
+            <button onclick="addAlbum()">Upload & Adicionar Álbum</button>
+        </div>
+
+        <button onclick="saveAll()" style="font-size: 1.2em; padding: 15px; margin-top: 10px; width: 100%;">[ SALVAR TODAS AS ALTERAÇÕES ]</button>
+    </div>
+
+    <script>
+        let siteData = {};
+        let adminPassword = "";
+
+        // Login Logic
+        async function login() {
+            const pwd = document.getElementById('loginPwd').value.trim();
+            if(!pwd) {
+                showLoginMsg("Digite a senha!", "error");
+                return;
+            }
+            
+            try {
+                // Verify password first
+                const verifyRes = await fetch('/api/verify', {
+                    method: 'POST',
+                    headers: { 'x-admin-password': pwd }
+                });
+                
+                if (!verifyRes.ok) {
+                    showLoginMsg("Senha incorreta!", "error");
+                    return;
+                }
+
+                adminPassword = pwd;
+                
+                // Carregar os dados e liberar a tela
+                const r = await fetch('/api/data?t=' + new Date().getTime());
+                const data = await r.json();
+                
+                siteData = data;
+                document.getElementById('aboutText').value = data.about;
+                document.getElementById('contactPresave').value = data.contact.presave;
+                document.getElementById('contactYoutube').value = data.contact.youtube;
+                document.getElementById('contactWhatsapp').value = data.contact.whatsapp;
+                document.getElementById('contactEmail').value = data.contact.email;
+                document.getElementById('videoId').value = data.video;
+                
+                if(!siteData.shows) siteData.shows = []; // Garantir que seja array
+                renderShows();
+                renderAlbums();
+                
+                // Esconde login, mostra dashboard
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboardScreen').style.display = 'flex';
+                
+            } catch(err) {
+                showLoginMsg("Erro ao conectar com servidor.", "error");
+            }
+        }
+
+        function showLoginMsg(text, type) {
+            const el = document.getElementById('loginStatus');
+            el.textContent = text;
+            el.className = 'status ' + type;
+            el.style.display = 'block';
+        }
+
+        // Shows Logic
+        function renderShows() {
+            const list = document.getElementById('showsList');
+            list.innerHTML = '';
+            siteData.shows.forEach((show, index) => {
+                list.innerHTML += `
+                    <div class="album-item">
+                        <div>
+                            <b style="color:#ff2c2c; font-family:'Special Elite', system-ui;">${show.date}</b><br>
+                            <span style="font-size:0.9rem;">${show.link}</span>
+                        </div>
+                        <button onclick="removeShow(${index})" style="background:#111; color:#fff; border-color:#555;">Excluir</button>
+                    </div>
+                `;
+            });
+        }
+
+        function removeShow(index) {
+            siteData.shows.splice(index, 1);
+            renderShows();
+            saveAll(true);
+        }
+
+        function addShow() {
+            const date = document.getElementById('newShowDate').value;
+            const link = document.getElementById('newShowLink').value;
+            if(!date || !link) {
+                showMsg('Preencha data e link do show.', 'error');
+                return;
+            }
+            siteData.shows.push({ date, link });
+            document.getElementById('newShowDate').value = '';
+            document.getElementById('newShowLink').value = '';
+            renderShows();
+            saveAll(true);
+        }
+
+        // Dashboard Logic (Albums)
+        function renderAlbums() {
+            const list = document.getElementById('albumsList');
+            list.innerHTML = '';
+            siteData.albums.forEach((album, index) => {
+                list.innerHTML += `
+                    <div class="album-item">
+                        <div style="display:flex; align-items:center;">
+                            <img src="${album.cover}">
+                            <div>
+                                <b style="color:#ff2c2c; font-family:'Special Elite', system-ui;">${album.title}</b> (${album.type})<br>
+                                <span style="font-size:0.9rem;">${album.link}</span>
+                            </div>
+                        </div>
+                        <button onclick="removeAlbum(${index})" style="background:#111; color:#fff; border-color:#555;">Excluir</button>
+                    </div>
+                `;
+            });
+        }
+
+        function removeAlbum(index) {
+            siteData.albums.splice(index, 1);
+            renderAlbums();
+            saveAll(true);
+        }
+
+        async function addAlbum() {
+            const fileInput = document.getElementById('newAlbumFile');
+            const title = document.getElementById('newAlbumTitle').value;
+            const type = document.getElementById('newAlbumType').value;
+            const link = document.getElementById('newAlbumLink').value;
+
+            if (!fileInput.files[0] || !title || !type || !link) {
+                showMsg('Preencha todos os campos do álbum e selecione uma imagem.', 'error');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('cover', fileInput.files[0]);
+
+            try {
+                // Upload Image
+                const upRes = await fetch('/api/upload', {
+                    method: 'POST',
+                    headers: { 'x-admin-password': adminPassword },
+                    body: formData
+                });
+                
+                const upData = await upRes.json();
+                if (!upRes.ok) throw new Error(upData.error || 'Senha Incorreta ou Erro no upload');
+
+                // Add to array
+                siteData.albums.push({
+                    title, type, link, cover: upData.path
+                });
+
+                // Clear fields
+                document.getElementById('newAlbumTitle').value = '';
+                document.getElementById('newAlbumType').value = '';
+                document.getElementById('newAlbumLink').value = '';
+                fileInput.value = '';
+
+                renderAlbums();
+                saveAll(true);
+            } catch (err) {
+                showMsg(err.message, 'error');
+            }
+        }
+
+        async function saveAll(isAutoSave = false) {
+            // Update data object
+            siteData.about = document.getElementById('aboutText').value;
+            siteData.contact.presave = document.getElementById('contactPresave').value;
+            siteData.contact.youtube = document.getElementById('contactYoutube').value;
+            siteData.contact.whatsapp = document.getElementById('contactWhatsapp').value;
+            siteData.contact.email = document.getElementById('contactEmail').value;
+            siteData.video = document.getElementById('videoId').value;
+            // shows and albums are already updated via their respective functions
+
+            siteData.password = adminPassword; // Send password for auth
+
+            try {
+                const res = await fetch('/api/data', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(siteData)
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Erro ao salvar. Senha errada?');
+                
+                showMsg(isAutoSave ? 'Item salvo automaticamente!' : 'Site atualizado com sucesso!', 'success');
+            } catch (err) {
+                showMsg(err.message, 'error');
+            }
+        }
+
+        function showMsg(text, type) {
+            const el = document.getElementById('statusMessage');
+            el.textContent = text;
+            el.className = 'status ' + type;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 5000);
+        }
+    </script>
+</body>
+</html>

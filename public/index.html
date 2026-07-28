@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vertigo</title>
+    <link rel="shortcut icon" type="image/png" href="./src/img/circulo.png"/>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="myspace-container">
+        
+        <!-- Header (Logo) -->
+        <header class="myspace-header box">
+            <img src="src/img/vertigo-icon-2.png" alt="Logo da Banda Vertigo" class="band-logo">
+        </header>
+
+        <!-- Container for columns -->
+        <div class="myspace-columns">
+            
+            <!-- Left Column (Profile, Links, Contact) -->
+            <aside class="myspace-left">
+                
+                <div class="box profile-box">
+                    <h2>Vertigo</h2>
+                    <img src="src/img/circulo.png" alt="Profile Pic" class="profile-pic">
+                    <p class="status">"Metal Alternativo do Brasil"</p>
+                    <p>Membros: Clound, Vyper, Coró, Estevão e Potim</p>
+                    <p>Fundação: 2024</p>
+                </div>
+
+                <div class="box contact-box">
+                    <h3 style="text-align: center;">Contato</h3>
+                    <div class="contact-grid">
+                        <a href="#" id="link-presave" target="_blank">[Pré-save]</a>
+                        <a href="#" id="link-youtube" target="_blank">[YouTube]</a>
+                        <a href="#" id="link-whatsapp" target="_blank">[WhatsApp]</a>
+                        <a href="#" id="link-email">[Email]</a>
+                    </div>
+                </div>
+
+                <div class="box about-box" id="sobre">
+                    <h3 style="text-align: center;">Sobre a Banda</h3>
+                    <h4>Quem somos:</h4>
+                    <p id="about-text">Carregando...</p>
+                </div>
+            </aside>
+
+            <!-- Right Column (Video, Shows, Music) -->
+            <main class="myspace-right">
+                
+                <div class="box video-box">
+                    <h3 style="text-align: center;">Videoclipe em Destaque</h3>
+                    <div class="video-container">
+                        <iframe 
+                            id="video-iframe"
+                            src="" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <a href="#" id="video-link" target="_blank" class="video-link">Assista no YouTube</a>
+                </div>
+
+                <div class="box shows-box" id="proximos-shows">
+                    <h3 style="text-align: center;">Próximos Shows</h3>
+                    <div id="shows-container">
+                        <p>Carregando shows...</p>
+                    </div>
+                </div>
+
+                <div class="box music-box" id="musicas">
+                    <h3 style="text-align: center;">Músicas / Discografia</h3>
+                    <div class="albums-grid" id="albums-container">
+                        <!-- Albums will be injected here via JS -->
+                        <p>Carregando álbuns...</p>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <footer class="myspace-footer box">
+            <p>&copy; 2025 Vertigo. Layout MySpace Tribute.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Fetch data from backend
+        fetch('/api/data?t=' + new Date().getTime())
+            .then(res => res.json())
+            .then(data => {
+                // Populate About
+                document.getElementById('about-text').textContent = data.about;
+
+                // Populate Contact Links
+                document.getElementById('link-presave').href = data.contact.presave;
+                document.getElementById('link-youtube').href = data.contact.youtube;
+                document.getElementById('link-whatsapp').href = data.contact.whatsapp;
+                document.getElementById('link-email').href = `mailto:${data.contact.email}`;
+
+                // Populate Video
+                document.getElementById('video-iframe').src = `https://www.youtube.com/embed/${data.video}`;
+                document.getElementById('video-link').href = `https://www.youtube.com/watch?v=${data.video}`;
+
+                // Populate Shows
+                const showsContainer = document.getElementById('shows-container');
+                showsContainer.innerHTML = '';
+                if(data.shows && data.shows.length > 0) {
+                    data.shows.forEach(show => {
+                        showsContainer.innerHTML += `
+                            <div class="show-card">
+                                <span class="show-date">${show.date}</span>
+                                <a href="${show.link}" target="_blank" class="myspace-btn">Comprar Ingressos</a>
+                            </div>
+                        `;
+                    });
+                } else {
+                    showsContainer.innerHTML = '<p style="text-align: center;">...</p>';
+                }
+
+                // Populate Albums
+                const albumsContainer = document.getElementById('albums-container');
+                albumsContainer.innerHTML = ''; // clear loading text
+                data.albums.forEach(album => {
+                    const div = document.createElement('div');
+                    div.className = 'album-item';
+                    div.innerHTML = `
+                        <a href="${album.link}" target="_blank">
+                            <img src="${album.cover}" alt="Capa ${album.title}">
+                            <p>${album.title}<br><span>${album.type}</span></p>
+                        </a>
+                    `;
+                    albumsContainer.appendChild(div);
+                });
+            })
+            .catch(err => console.error('Erro ao carregar dados:', err));
+    </script>
+</body>
+</html>

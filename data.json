@@ -1,0 +1,49 @@
+{
+  "about": "Vertigo é uma banda de metal alternativo fundada em 2024 pelos músicos Clound e Vyper. Puxando as raízes do nu metal a banda trás um som melódico, pesado e bem característico dos anos 90 mas com nuances modernas e construindo um som intenso e moderno.",
+  "contact": {
+    "presave": "https://artists.landr.com/991043823636",
+    "youtube": "https://www.youtube.com/@Vertigo_vtg",
+    "whatsapp": "https://wa.me/62994919324",
+    "email": "vertigobandabrasil@gmail.com"
+  },
+  "video": "DdJh621EWtI",
+  "shows": [],
+  "albums": [
+    {
+      "title": "H3LL",
+      "type": "Single",
+      "cover": "src/img/H3LL_capa.jpeg",
+      "link": "https://artists.landr.com/991043361053"
+    },
+    {
+      "title": "ECLIPSE",
+      "type": "Single",
+      "cover": "src/img/ECLIPSE_capa.jpeg",
+      "link": "https://artists.landr.com/991043158561"
+    },
+    {
+      "title": "SILENCE",
+      "type": "Single",
+      "cover": "src/img/CapaSilence.png",
+      "link": "https://artists.landr.com/057914798066"
+    },
+    {
+      "title": "Genesis",
+      "type": "EP",
+      "cover": "src/img/CapaGenesis.jpg",
+      "link": "https://artists.landr.com/057829902008"
+    },
+    {
+      "title": "After Here",
+      "type": "Single",
+      "cover": "src/img/CapaAfterHere.jpg",
+      "link": "https://artists.landr.com/057829274143"
+    },
+    {
+      "title": "Após o fim",
+      "type": "Single",
+      "cover": "src/img/CapaApósOFim.png",
+      "link": "https://artists.landr.com/990591480919"
+    }
+  ]
+}

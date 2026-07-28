@@ -1,0 +1,287 @@
+/* --- Reset e Configurações Globais --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Special Elite', system-ui; /* Vintage typewriter font */
+    font-size: 1.1rem;
+    color: #c0c0c0;
+    background-color: #000;
+    
+    /* --- IMAGEM DE FUNDO FIXA TIPO MYSPACE --- */
+    background-image: url('src/img/bg_myspace.jpg');
+    background-position: top left;
+    background-repeat: repeat; /* Emo background tiling */
+    background-attachment: fixed; 
+}
+
+/* Titles font */
+h2, h3, h4, .status, .myspace-header {
+    font-family: 'Special Elite', system-ui; /* Radical metal font */
+    color: #ff2c2c;
+    letter-spacing: 2px;
+}
+
+/* Pixelate images */
+img {
+    image-rendering: pixelated;
+}
+
+/* --- Overlay com ruído --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.9) 100%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* --- LAYOUT DO MYSPACE --- */
+.myspace-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.box {
+    background: rgba(10, 10, 10, 0.85); /* Dark transparent box */
+    border: 2px solid #ce0000;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(206, 0, 0, 0.5);
+}
+
+.box h3 {
+    background-color: #ce0000;
+    color: #000;
+    padding: 5px 10px;
+    margin: -15px -15px 15px -15px;
+    border-radius: 3px 3px 0 0;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid #500000;
+}
+
+a {
+    color: #ff2c2c;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Header */
+.myspace-header {
+    text-align: center;
+    border: 3px solid #ff2c2c;
+    background: #000;
+}
+
+.band-logo {
+    max-width: 100%;
+    height: auto;
+    width: 400px;
+    filter: drop-shadow(0 0 10px #ce0000);
+}
+
+/* Columns */
+.myspace-columns {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.myspace-left {
+    flex: 0 0 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.myspace-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Profile Box */
+.profile-box {
+    text-align: center;
+}
+.profile-box h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+.profile-pic {
+    width: 200px;
+    border: 2px solid #ff2c2c;
+    margin-bottom: 10px;
+    background: #000;
+}
+.profile-box p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+}
+.profile-box .status {
+    font-size: 1rem;
+    color: #c0c0c0;
+    margin-bottom: 15px;
+}
+
+/* Contact Grid */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.contact-grid a {
+    display: block;
+    background: #111;
+    border: 1px solid #444;
+    padding: 5px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #c0c0c0;
+    transition: 0.2s;
+}
+.contact-grid a:hover {
+    background: #222;
+    border-color: #ff2c2c;
+    color: #ff2c2c;
+}
+
+/* About Box */
+.about-box h4 {
+    margin-bottom: 5px;
+    color: #fff;
+    font-size: 1rem;
+}
+.about-box p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Video Box */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    border: 2px solid #333;
+    margin-bottom: 10px;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.video-link {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+/* Shows Box */
+.shows-box .show-card {
+    background: #111;
+    border: 1px dashed #ce0000;
+    padding: 15px;
+    text-align: center;
+}
+.show-date {
+    display: block;
+    font-family: 'Special Elite', system-ui;
+    color: #ff2c2c;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+}
+.myspace-btn {
+    display: inline-block;
+    background: #ce0000;
+    color: #000;
+    padding: 8px 15px;
+    font-family: 'Special Elite', system-ui;
+    font-size: 1.2rem;
+    font-weight: normal;
+    border: 2px solid #ff2c2c;
+    box-shadow: 2px 2px 0px #500000;
+}
+.myspace-btn:hover {
+    background: #ff2c2c;
+    color: #000;
+    text-decoration: none;
+}
+
+/* Music Box - The Grid */
+.albums-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 15px;
+    justify-items: center;
+    padding: 10px;
+}
+.album-item {
+    text-align: center;
+}
+.album-item img {
+    width: 100%;
+    max-width: 130px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 2px solid #333;
+    margin-bottom: 5px;
+    transition: 0.2s;
+}
+.album-item a:hover img {
+    border-color: #ff2c2c;
+}
+.album-item p {
+    font-family: 'Special Elite', system-ui;
+    font-size: 1.1rem;
+    color: #fff;
+    margin: 5px 0 0 0;
+}
+.album-item p span {
+    font-family: 'Special Elite', system-ui;
+    font-size: 0.9rem;
+    color: #ff2c2c;
+}
+
+/* Footer */
+.myspace-footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .myspace-columns {
+        flex-direction: column;
+    }
+    .myspace-left {
+        flex: 1;
+        width: 100%;
+    }
+    .myspace-right {
+        flex: 1;
+        width: 100%;
+    }
+}
