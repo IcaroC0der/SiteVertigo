@@ -19,8 +19,11 @@
   },
   "homepage": "https://github.com/IcaroC0der/SiteVertigo#readme",
   "dependencies": {
+    "@vercel/blob": "^2.6.1",
     "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "multer": "^2.2.0"
+    "multer": "^2.2.0",
+    "pg": "^8.22.0"
   }
 }

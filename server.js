@@ -1,33 +1,19 @@
+require('dotenv').config();
 const express = require('express');
-const fs = require('fs');
-const path = require('path');
 const cors = require('cors');
+const { Client } = require('pg');
+const { put } = require('@vercel/blob');
 const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DATA_FILE = path.join(__dirname, 'data.json');
 
-// Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public')); // Serve frontend files
+app.use(express.static('public'));
 
-// Configure Multer for image uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, 'public/src/img'));
-    },
-    filename: function (req, file, cb) {
-        // Keep original name but add timestamp to avoid overwrites
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + path.extname(file.originalname));
-    }
-});
-const upload = multer({ storage: storage });
-
-// Security Middleware (Simple Password Check)
 const adminPassword = 'vertigoadmin'; // Change this in production
+
 function checkAuth(req, res, next) {
     const pwd = req.headers['x-admin-password'] || req.body.password;
     if (pwd === adminPassword) {
@@ -37,13 +23,45 @@ function checkAuth(req, res, next) {
     }
 }
 
+// Multer using memory storage so we can upload the buffer to Vercel Blob
+const upload = multer({ storage: multer.memoryStorage() });
+
+// Helper function to get DB client
+const getClient = () => new Client({ connectionString: process.env.DATABASE_URL });
+
 // GET Data
-app.get('/api/data', (req, res) => {
+app.get('/api/data', async (req, res) => {
     res.set('Cache-Control', 'no-store');
-    fs.readFile(DATA_FILE, 'utf8', (err, data) => {
-        if (err) return res.status(500).json({ error: 'Failed to read data' });
-        res.json(JSON.parse(data));
-    });
+    const client = getClient();
+    try {
+        await client.connect();
+        
+        const siteInfoRes = await client.query('SELECT * FROM site_info WHERE id = 1');
+        const showsRes = await client.query('SELECT * FROM shows ORDER BY id ASC');
+        const albumsRes = await client.query('SELECT * FROM albums ORDER BY id ASC');
+
+        const info = siteInfoRes.rows[0] || {};
+        
+        const data = {
+            about: info.about || '',
+            video: info.video || '',
+            contact: {
+                presave: info.contact_presave || '',
+                youtube: info.contact_youtube || '',
+                whatsapp: info.contact_whatsapp || '',
+                email: info.contact_email || ''
+            },
+            shows: showsRes.rows,
+            albums: albumsRes.rows
+        };
+
+        res.json(data);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Database error' });
+    } finally {
+        await client.end();
+    }
 });
 
 // Verify Password
@@ -52,28 +70,73 @@ app.post('/api/verify', checkAuth, (req, res) => {
 });
 
 // POST Update Data
-app.post('/api/data', checkAuth, (req, res) => {
-    // Remove the password field before saving
-    const dataToSave = { ...req.body };
-    delete dataToSave.password;
+app.post('/api/data', checkAuth, async (req, res) => {
+    const data = req.body;
+    const client = getClient();
 
-    fs.writeFile(DATA_FILE, JSON.stringify(dataToSave, null, 2), (err) => {
-        if (err) return res.status(500).json({ error: 'Failed to save data' });
+    try {
+        await client.connect();
+        await client.query('BEGIN'); // Start transaction
+
+        // Update site_info
+        await client.query(`
+            UPDATE site_info 
+            SET about = $1, video = $2, contact_presave = $3, contact_youtube = $4, contact_whatsapp = $5, contact_email = $6
+            WHERE id = 1
+        `, [
+            data.about, data.video, data.contact.presave, data.contact.youtube, data.contact.whatsapp, data.contact.email
+        ]);
+
+        // Rebuild shows
+        await client.query('TRUNCATE TABLE shows RESTART IDENTITY');
+        if (data.shows && data.shows.length > 0) {
+            for (const show of data.shows) {
+                await client.query('INSERT INTO shows (date, link) VALUES ($1, $2)', [show.date, show.link]);
+            }
+        }
+
+        // Rebuild albums
+        await client.query('TRUNCATE TABLE albums RESTART IDENTITY');
+        if (data.albums && data.albums.length > 0) {
+            for (const album of data.albums) {
+                await client.query('INSERT INTO albums (title, type, cover, link) VALUES ($1, $2, $3, $4)', 
+                [album.title, album.type, album.cover, album.link]);
+            }
+        }
+
+        await client.query('COMMIT');
         res.json({ message: 'Data updated successfully' });
-    });
-});
-
-// POST Upload Image
-app.post('/api/upload', checkAuth, upload.single('cover'), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ error: 'No file uploaded' });
+    } catch (err) {
+        await client.query('ROLLBACK');
+        console.error(err);
+        res.status(500).json({ error: 'Failed to update data' });
+    } finally {
+        await client.end();
     }
-    // Return the relative path to the image
-    const relativePath = 'src/img/' + req.file.filename;
-    res.json({ path: relativePath });
 });
 
-// Start Server
+// POST Upload Image to Vercel Blob
+app.post('/api/upload', checkAuth, upload.single('cover'), async (req, res) => {
+    if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+
+    try {
+        if (!process.env.BLOB_READ_WRITE_TOKEN) {
+             throw new Error("BLOB_READ_WRITE_TOKEN is missing in .env");
+        }
+
+        // Upload to Vercel Blob
+        const blob = await put(`covers/${Date.now()}-${req.file.originalname}`, req.file.buffer, {
+            access: 'public',
+        });
+
+        // Vercel Blob returns the public URL in 'blob.url'
+        res.json({ path: blob.url });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to upload to Cloud Storage: ' + err.message });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
