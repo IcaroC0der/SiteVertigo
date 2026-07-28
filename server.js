@@ -28,7 +28,7 @@ function checkAuth(req, res, next) {
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Helper function to get DB client
-const getClient = () => new Client({ connectionString: process.env.DATABASE_URL });
+const getClient = () => new Client({ connectionString: process.env.DATABASE_URL || process.env.Database_URL });
 
 // GET Data
 app.get('/api/data', async (req, res) => {
